@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class DummyCocktailRepository implements CocktailRepository{
+public class DummyCocktailRepository implements CocktailRepository {
 
     public List<Cocktail> getAll() {
         return Arrays.asList(new Cocktail(UUID.fromString("23b3d85a-3928-41c0-a533-6538a71e17c4"), "Margerita", "Cocktail glass",

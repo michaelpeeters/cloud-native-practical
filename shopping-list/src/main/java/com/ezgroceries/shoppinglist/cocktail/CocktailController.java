@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CocktailController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private final CocktailRepository cocktailRepository;
+    private final CocktailService cocktailService;
 
     @Autowired
-    public CocktailController(CocktailRepository cocktailRepository) {
-        this.cocktailRepository = cocktailRepository;
+    public CocktailController(CocktailService cocktailService) {
+        this.cocktailService = cocktailService;
     }
 
     @GetMapping(value = "/cocktails")
     public @ResponseBody
     List<Cocktail> get(@RequestParam(required = false) String search) {
         logger.info("search criteria: " + search);
-        return cocktailRepository.getAll();
+        return cocktailService.getAll();
     }
 
 
