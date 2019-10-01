@@ -59,4 +59,13 @@ public class ShoppingListApplicationIntegrationTests {
         assertThat(result.toString(), containsString("shoppingListId"));
         assertThat(result.toString(), not(containsString("cocktails")));
     }
+
+    @Test
+    public void getShoppingList() throws Exception {
+      //  HttpEntity<String> request = new HttpEntity<String>( httpHeaders);
+
+        ResponseEntity result = restTemplate.getForEntity(baseUrl + "/shopping-lists/16726782", String.class);
+        assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
+
+    }
 }

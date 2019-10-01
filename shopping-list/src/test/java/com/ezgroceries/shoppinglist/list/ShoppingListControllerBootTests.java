@@ -1,10 +1,13 @@
 package com.ezgroceries.shoppinglist.list;
 
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -14,6 +17,7 @@ import com.ezgroceries.shoppinglist.cocktail.Cocktail;
 import com.ezgroceries.shoppinglist.cocktail.CocktailController;
 import com.ezgroceries.shoppinglist.cocktail.CocktailService;
 import com.ezgroceries.shoppinglist.cocktail.DummyCocktailRepository;
+import java.util.Arrays;
 import java.util.UUID;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -84,9 +88,8 @@ public class ShoppingListControllerBootTests {
         // act and assert
         mockMvc.perform(post("/shopping-lists/{shopping-list-id}/cocktails", testShoppingList.getShoppingListId().toString())
                 .contentType(MediaType.APPLICATION_JSON_UTF8).content("[" + "{\"cocktailId\": \"23b3d85a-3928-41c0-a533-6538a71e17c4\"},"
-                        + "{\"cocktailId\": \"d615ec78-fe93-467b-8d26-5d26d8eab073\"}" + "]").characterEncoding("utf-8"))
-                .andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(content().string(Matchers.containsString("cocktailId")));
+                        + "{\"cocktailId\": \"d615ec78-fe93-467b-8d26-5d26d8eab073\"}" + "]").characterEncoding("utf-8")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(content().string(Matchers.containsString("cocktailId")));
 
         // verify
         verify(shoppingListService).get(any());
@@ -128,4 +131,37 @@ public class ShoppingListControllerBootTests {
         verify(cocktailService).get(any());
 
     }
+
+    @Test
+    public void getShoppingList() throws Exception {
+        ShoppingList testShoppingList = new ShoppingList("abc");
+        // arrange
+        when(shoppingListService.get(any())).thenReturn(testShoppingList);
+
+        // act and assert
+        mockMvc.perform(get("/shopping-lists/{shopping-list-id}", testShoppingList.getShoppingListId().toString())).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(jsonPath("name").value("abc"))
+                .andExpect(jsonPath("shoppingListId").exists()).andExpect(jsonPath("ingredients").isArray());
+
+        // verify
+        verify(shoppingListService).get(any());
+    }
+
+    @Test
+    public void getAllShoppingList() throws Exception {
+        ShoppingList testShoppingList = new ShoppingList("abc");
+        ShoppingList testShoppingList2 = new ShoppingList("abc2");
+        // arrange
+        when(shoppingListService.getAll()).thenReturn(Arrays.asList(testShoppingList, testShoppingList2));
+
+        ///$[0] access result of toplevel array
+        // act and assert
+        mockMvc.perform(get("/shopping-lists")).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].shoppingListId").value(not(isEmptyString()))).andExpect(jsonPath("$[0].name").value("abc"))
+                .andExpect(jsonPath("$[0].ingredients").isArray()).andExpect(jsonPath("$[1].shoppingListId").value(not(isEmptyString())))
+                .andExpect(jsonPath("$[1].name").value("abc2")).andExpect(jsonPath("$[1].ingredients").isArray());
+        // verify
+        verify(shoppingListService).getAll();
+    }
+
 }

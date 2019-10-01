@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,12 +35,33 @@ public class ShoppingListController {
     }
 
 
-    @JsonView(ShoppingListView.Summary.class)
     @PostMapping(value = "/shopping-lists")
     @ResponseStatus(HttpStatus.CREATED) // 201
     public @ResponseBody
-    ShoppingList createShoppingList(@RequestBody ShoppingList shoppingList) {
-        return shoppingListService.add(shoppingList);
+    ShoppingListDto createShoppingList(@RequestBody ShoppingList shoppingList) {
+        return new ShoppingListDto(shoppingListService.add(shoppingList));
+    }
+
+    @GetMapping(value = "/shopping-lists")
+    @ResponseStatus(HttpStatus.OK) // 200
+    public @ResponseBody
+    List<ShoppingListDto> getAll() {
+        return shoppingListService.getAll().stream().map(ShoppingListDto::new).collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/shopping-lists/{shoppingListId}")
+    @ResponseStatus(HttpStatus.OK) // 200
+    public @ResponseBody
+    ShoppingListDto getShoppingList(@PathVariable String shoppingListId) {
+        return new ShoppingListDto(getShoppingListById(shoppingListId));
+    }
+
+    private ShoppingList getShoppingListById(@PathVariable String shoppingListId) {
+        final ShoppingList shoppingList = shoppingListService.get(shoppingListId);
+        if (shoppingList == null) {
+            throw new ShoppingListNotFoundException("Shoppinglist with id " + shoppingListId + " not found");
+        }
+        return shoppingList;
     }
 
     @JsonView(CocktailView.Id.class)
@@ -47,10 +69,7 @@ public class ShoppingListController {
     @ResponseStatus(HttpStatus.OK) // 200
     public @ResponseBody
     List<Cocktail> createShoppingList(@PathVariable String shoppingListId, @RequestBody List<Cocktail> cocktailIdentifiedByIds) {
-        final ShoppingList shoppingList = shoppingListService.get(shoppingListId);
-        if (shoppingList == null) {
-            throw new ShoppingListNotFoundException("Shoppinglist with id " + shoppingListId + " not found");
-        }
+        final ShoppingList shoppingList = getShoppingListById(shoppingListId);
         // TODO move to service?
         List<Cocktail> cocktails = cocktailIdentifiedByIds.stream().map(cocktail -> cocktailService.get(cocktail.getCocktailId().toString()))
                 .collect(Collectors.toList());

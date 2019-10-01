@@ -1,16 +1,13 @@
 package com.ezgroceries.shoppinglist.list;
 
 import com.ezgroceries.shoppinglist.cocktail.Cocktail;
-import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ShoppingList {
 
-    @JsonView(ShoppingListView.Summary.class)
     private final UUID shoppingListId;
-    @JsonView(ShoppingListView.Summary.class)
     private String name;
     private List<Cocktail> cocktails;
 
