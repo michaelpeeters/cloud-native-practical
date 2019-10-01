@@ -8,9 +8,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ShoppingList {
 
-    @JsonView(View.Summary.class)
+    @JsonView(ShoppingListView.Summary.class)
     private final UUID shoppingListId;
-    @JsonView(View.Summary.class)
+    @JsonView(ShoppingListView.Summary.class)
     private String name;
     private List<Cocktail> cocktails;
 

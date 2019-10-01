@@ -21,5 +21,9 @@ public class ShoppingListService {
     ShoppingList add(ShoppingList shoppingList) {
         return shoppingListRepository.add(shoppingList);
     }
+
+    ShoppingList get(String id) {
+        return shoppingListRepository.get(id);
+    }
 }
 

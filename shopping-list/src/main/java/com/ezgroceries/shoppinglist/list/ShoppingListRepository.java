@@ -8,4 +8,5 @@ public interface ShoppingListRepository {
 
     ShoppingList add(ShoppingList shoppingList);
 
+    ShoppingList get(String id);
 }

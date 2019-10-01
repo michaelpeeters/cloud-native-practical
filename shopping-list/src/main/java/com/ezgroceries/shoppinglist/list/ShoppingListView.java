@@ -1,5 +1,5 @@
 package com.ezgroceries.shoppinglist.list;
 
-public class View {
+public class ShoppingListView {
 	interface Summary {}
 }

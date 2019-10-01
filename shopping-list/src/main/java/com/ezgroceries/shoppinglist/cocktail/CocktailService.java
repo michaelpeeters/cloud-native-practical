@@ -14,8 +14,16 @@ public class CocktailService {
         this.cocktailRepository = cocktailRepository;
     }
 
-    List<Cocktail> getAll() {
+    public List<Cocktail> getAll() {
         return cocktailRepository.getAll();
+    }
+
+    public Cocktail get(String cocktailId) {
+        Cocktail cocktail = cocktailRepository.get(cocktailId);
+        if (cocktail == null) {
+            throw new CocktailNotFoundException("Cocktail with id " + cocktailId + " is not found.");
+        }
+        return cocktail;
     }
 }
 

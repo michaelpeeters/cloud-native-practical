@@ -1,10 +1,12 @@
 package com.ezgroceries.shoppinglist.cocktail;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import java.util.UUID;
 
 public class Cocktail {
 
+    @JsonView(CocktailView.Id.class)
     private final UUID cocktailId;
     private String name;
     private String glass;

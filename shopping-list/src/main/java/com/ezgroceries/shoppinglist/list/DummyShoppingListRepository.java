@@ -13,9 +13,14 @@ public class DummyShoppingListRepository implements ShoppingListRepository {
     public List<ShoppingList> getAll() {
         return shoppingLists;
     }
-
+    @Override
     public ShoppingList add(ShoppingList shoppingList) {
         shoppingLists.add(shoppingList);
         return shoppingList;
+    }
+    @Override
+    public ShoppingList get(String id) {
+        return shoppingLists.stream().filter(shoppingList -> shoppingList.getShoppingListId().toString().equals(id)).findFirst()
+                .orElse(null);
     }
 }
