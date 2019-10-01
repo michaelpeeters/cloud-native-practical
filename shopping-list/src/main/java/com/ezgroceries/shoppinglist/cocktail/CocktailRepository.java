@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface CocktailRepository {
 
-    List<Cocktail> getAll();
-
     Cocktail get(String cocktailId);
+
+    List<Cocktail> search(String cocktailName);
 }

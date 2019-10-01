@@ -13,10 +13,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.ezgroceries.shoppinglist.MyTestConfiguration;
 import com.ezgroceries.shoppinglist.cocktail.Cocktail;
-import com.ezgroceries.shoppinglist.cocktail.CocktailController;
 import com.ezgroceries.shoppinglist.cocktail.CocktailService;
-import com.ezgroceries.shoppinglist.cocktail.DummyCocktailRepository;
 import java.util.Arrays;
 import java.util.UUID;
 import org.hamcrest.Matchers;
@@ -26,7 +25,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -38,14 +36,11 @@ import org.springframework.test.web.servlet.MockMvc;
  */
 @RunWith(SpringRunner.class)
 @WebMvcTest(ShoppingListController.class)
+@Import(MyTestConfiguration.class)
+
 public class ShoppingListControllerBootTests {
 
-    @Configuration
-    @Import({ShoppingListController.class, ShoppingListService.class, DummyShoppingListRepository.class, CocktailController.class,
-            CocktailService.class, DummyCocktailRepository.class}) // A @Component injected with ExampleService
-    static class Config {
 
-    }
 
     private final static UUID DUMMY_UUID = UUID.fromString("23b3d85a-1234-5678-1234-6538a71e17c4");
     @Autowired

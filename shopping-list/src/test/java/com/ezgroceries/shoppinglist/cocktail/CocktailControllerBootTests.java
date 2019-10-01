@@ -1,5 +1,6 @@
 package com.ezgroceries.shoppinglist.cocktail;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -23,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * These tests run the CocktailController using the MockMVC framework.
  * The server does not need to be running.
  */
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(CocktailController.class)
 public class CocktailControllerBootTests {
@@ -34,18 +36,18 @@ public class CocktailControllerBootTests {
     private CocktailService cocktailService;
 
     @Test
-    public void getAll() throws Exception {
+    public void search() throws Exception {
 
         // arrange
-        given(cocktailService.getAll()).willReturn(dummyListOfCocktails());
+        given(cocktailService.search("russian")).willReturn(dummyListOfCocktails());
 
         // act and assert
-        mockMvc.perform(get("/cocktails")).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        mockMvc.perform(get("/cocktails").param("search", "russian")).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(content().string(Matchers.containsString("23b3d85a-3928-41c0-a533-6538a71e17c4")))
                 .andExpect(content().string(Matchers.containsString("d615ec78-fe93-467b-8d26-5d26d8eab073")));
 
         // verify
-        verify(cocktailService).getAll();
+        verify(cocktailService).search("russian");
 
     }
 
@@ -58,6 +60,22 @@ public class CocktailControllerBootTests {
                         "Rub rim of cocktail glass with lime juice. Dip rim in coarse salt..",
                         "https://www.thecocktaildb.com/images/media/drink/qtvvyq1439905913.jpg",
                         Arrays.asList("Tequila", "Blue Curacao", "Lime juice", "Salt")));
+    }
+
+    @Test
+    public void getAll() throws Exception {
+
+        // arrange
+        given(cocktailService.search(any())).willReturn(dummyListOfCocktails());
+
+        // act and assert
+        mockMvc.perform(get("/cocktails")).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().string(Matchers.containsString("23b3d85a-3928-41c0-a533-6538a71e17c4")))
+                .andExpect(content().string(Matchers.containsString("d615ec78-fe93-467b-8d26-5d26d8eab073")));
+
+        // verify
+        verify(cocktailService).search(any());
+
     }
 
 }

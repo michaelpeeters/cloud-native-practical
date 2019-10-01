@@ -14,9 +14,6 @@ public class CocktailService {
         this.cocktailRepository = cocktailRepository;
     }
 
-    public List<Cocktail> getAll() {
-        return cocktailRepository.getAll();
-    }
 
     public Cocktail get(String cocktailId) {
         Cocktail cocktail = cocktailRepository.get(cocktailId);
@@ -24,6 +21,10 @@ public class CocktailService {
             throw new CocktailNotFoundException("Cocktail with id " + cocktailId + " is not found.");
         }
         return cocktail;
+    }
+
+    public List<Cocktail> search(String cocktailName) {
+        return cocktailRepository.search(cocktailName);
     }
 }
 

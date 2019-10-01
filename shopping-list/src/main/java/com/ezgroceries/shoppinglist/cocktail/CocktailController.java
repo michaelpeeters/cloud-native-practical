@@ -24,7 +24,7 @@ public class CocktailController {
     public @ResponseBody
     List<Cocktail> get(@RequestParam(required = false) String search) {
         logger.info("search criteria: " + search);
-        return cocktailService.getAll();
+        return cocktailService.search(search);
     }
 
 

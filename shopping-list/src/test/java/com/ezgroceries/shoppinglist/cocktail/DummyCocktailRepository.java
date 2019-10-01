@@ -22,14 +22,20 @@ public class DummyCocktailRepository implements CocktailRepository {
                         Arrays.asList("Tequila", "Blue Curacao", "Lime juice", "Salt"))));
     }
 
-    @Override
-    public List<Cocktail> getAll() {
-        return cocktails;
-    }
 
     @Override
     public Cocktail get(String cocktailId) {
         return cocktails.stream().filter(cocktail -> cocktail.getCocktailId().toString().equals(cocktailId)).findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Cocktail> search(String cocktailName) {
+        // todo search on name
+        return cocktails;
+    }
+
+    public List<Cocktail> getAll() {
+        return cocktails;
     }
 
 }

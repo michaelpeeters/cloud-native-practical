@@ -4,15 +4,18 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import com.ezgroceries.shoppinglist.MyTestConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Import(MyTestConfiguration.class)
 public class CocktailServiceTests {
 
     @Autowired
@@ -24,8 +27,8 @@ public class CocktailServiceTests {
     }
 
     @Test
-    public void getAll() {
-        assertThat(cocktailService.getAll(), is(notNullValue()));
+    public void search() {
+        assertThat(cocktailService.search("ok"), is(notNullValue()));
     }
 
     @Test
