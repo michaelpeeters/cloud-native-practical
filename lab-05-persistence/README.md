@@ -115,8 +115,7 @@ Let's start by adding Flyway to our project, we need to add this dependency:
 
 Spring provides integration with Flyway out of the box, for configuration see:
 
-https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html#howto-execute-flyway-database-migrations-on-startup
-
+https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-execute-flyway-database-migrations-on-startup
 ## Shopping List Schema
 
 Let's define our Shopping List schema using flyway migration scripts, the first script is provided:
