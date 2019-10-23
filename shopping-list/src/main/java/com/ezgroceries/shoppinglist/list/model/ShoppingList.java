@@ -1,6 +1,7 @@
-package com.ezgroceries.shoppinglist.list;
+package com.ezgroceries.shoppinglist.list.model;
 
-import com.ezgroceries.shoppinglist.cocktail.Cocktail;
+import com.ezgroceries.shoppinglist.cocktail.model.Cocktail;
+import com.ezgroceries.shoppinglist.list.persistence.ShoppingListEntity;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -10,6 +11,10 @@ public class ShoppingList {
     private final UUID shoppingListId;
     private String name;
     private List<Cocktail> cocktails;
+
+    public ShoppingList(ShoppingListEntity shoppingListEntity) {
+        this(shoppingListEntity.getUuid(), shoppingListEntity.getName(), null);
+    }
 
     public ShoppingList(String name) {
         this(null, name, null);

@@ -4,8 +4,9 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-import com.ezgroceries.shoppinglist.cocktail.Cocktail;
-import com.ezgroceries.shoppinglist.cocktail.DummyCocktailRepository;
+import com.ezgroceries.shoppinglist.cocktail.model.Cocktail;
+import com.ezgroceries.shoppinglist.list.model.ShoppingList;
+import com.ezgroceries.shoppinglist.list.view.ShoppingListDto;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
@@ -23,7 +24,6 @@ public class ShoppingListDtoTest {
     @Before
     public void setup() {
         shoppingList = new ShoppingList("test");
-        List<Cocktail> cocktails = new DummyCocktailRepository().getAll();
         shoppingListDto = new ShoppingListDto(shoppingList);
 
     }

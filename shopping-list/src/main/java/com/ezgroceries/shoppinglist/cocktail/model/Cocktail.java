@@ -1,6 +1,9 @@
-package com.ezgroceries.shoppinglist.cocktail;
+package com.ezgroceries.shoppinglist.cocktail.model;
 
+import com.ezgroceries.shoppinglist.cocktail.persistence.CocktailEntity;
+import com.ezgroceries.shoppinglist.cocktail.view.CocktailView;
 import com.fasterxml.jackson.annotation.JsonView;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,6 +16,13 @@ public class Cocktail {
     private String instructions;
     private String image;
     private List<String> ingredients;
+
+    public Cocktail(CocktailEntity cocktailEntity){
+        this.cocktailId = cocktailEntity.getUuid();
+        this.name = cocktailEntity.getName();
+        this.ingredients = new ArrayList<>();
+        ingredients.addAll(cocktailEntity.getIngredients());
+    }
 
     public Cocktail(UUID cocktailId, String name, String glass, String instructions, String image, List<String> ingredients) {
         this.cocktailId = cocktailId;

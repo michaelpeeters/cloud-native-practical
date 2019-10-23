@@ -1,4 +1,4 @@
-package com.ezgroceries.shoppinglist.cocktail;
+package com.ezgroceries.shoppinglist.cocktail.dbclient;
 
 import io.micrometer.core.instrument.util.StringUtils;
 import java.util.Arrays;

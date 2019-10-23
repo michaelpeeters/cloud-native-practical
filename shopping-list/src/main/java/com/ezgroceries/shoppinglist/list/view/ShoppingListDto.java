@@ -1,5 +1,6 @@
-package com.ezgroceries.shoppinglist.list;
+package com.ezgroceries.shoppinglist.list.view;
 
+import com.ezgroceries.shoppinglist.list.model.ShoppingList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

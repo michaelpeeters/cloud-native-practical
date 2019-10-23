@@ -1,5 +1,7 @@
-package com.ezgroceries.shoppinglist.cocktail;
+package com.ezgroceries.shoppinglist.cocktail.controller;
 
+import com.ezgroceries.shoppinglist.cocktail.model.Cocktail;
+import com.ezgroceries.shoppinglist.cocktail.service.CocktailService;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

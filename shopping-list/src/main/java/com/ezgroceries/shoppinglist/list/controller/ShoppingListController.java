@@ -1,8 +1,12 @@
-package com.ezgroceries.shoppinglist.list;
+package com.ezgroceries.shoppinglist.list.controller;
 
-import com.ezgroceries.shoppinglist.cocktail.Cocktail;
-import com.ezgroceries.shoppinglist.cocktail.CocktailService;
-import com.ezgroceries.shoppinglist.cocktail.CocktailView;
+import com.ezgroceries.shoppinglist.cocktail.model.Cocktail;
+import com.ezgroceries.shoppinglist.cocktail.service.CocktailService;
+import com.ezgroceries.shoppinglist.cocktail.view.CocktailView;
+import com.ezgroceries.shoppinglist.list.model.ShoppingList;
+import com.ezgroceries.shoppinglist.list.view.ShoppingListDto;
+import com.ezgroceries.shoppinglist.list.exception.ShoppingListNotFoundException;
+import com.ezgroceries.shoppinglist.list.service.ShoppingListService;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.net.URI;
 import java.util.List;

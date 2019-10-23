@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-import com.ezgroceries.shoppinglist.list.ShoppingListController;
+import com.ezgroceries.shoppinglist.list.controller.ShoppingListController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,7 +24,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@Import(MyIntegrationTestConfiguration.class)
 
 public class ShoppingListApplicationIntegrationTests {
 
@@ -65,7 +63,7 @@ public class ShoppingListApplicationIntegrationTests {
 
     @Test
     public void getShoppingList() throws Exception {
-      //  HttpEntity<String> request = new HttpEntity<String>( httpHeaders);
+        //  HttpEntity<String> request = new HttpEntity<String>( httpHeaders);
 
         ResponseEntity result = restTemplate.getForEntity(baseUrl + "/shopping-lists/16726782", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));

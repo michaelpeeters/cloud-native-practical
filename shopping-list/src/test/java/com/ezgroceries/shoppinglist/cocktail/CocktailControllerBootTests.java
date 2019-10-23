@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.ezgroceries.shoppinglist.cocktail.controller.CocktailController;
+import com.ezgroceries.shoppinglist.cocktail.model.Cocktail;
+import com.ezgroceries.shoppinglist.cocktail.service.CocktailService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
